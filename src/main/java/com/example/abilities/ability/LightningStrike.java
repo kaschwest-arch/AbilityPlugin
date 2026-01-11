@@ -1,18 +1,31 @@
 package com.example.abilities.ability;
 
-import org.bukkit.*;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
+import org.bukkit.entity.LightningStrike;
 
-public class LightningStrike extends Ability {
-    public LightningStrike() {
-        super("LightningStrike", "abilities.lightning_strike", 12, Material.TRIDENT);
+public class LightningStrikeAbility extends Ability {
+
+    public LightningStrikeAbility() {
+        super(
+            "Lightning Strike",
+            15,
+            "Calls down lightning\non your target.",
+            Sound.ENTITY_LIGHTNING_BOLT_THUNDER,
+            Particle.ELECTRIC_SPARK
+        );
     }
 
     @Override
     public void activate(Player player) {
-        player.getWorld().strikeLightningEffect(player.getTargetBlockExact(15).getLocation());
+        playEffects(player);
+
+        if (player.getTargetBlockExact(25) == null) return;
+
+        LightningStrike strike = player.getWorld().strikeLightning(
+                player.getTargetBlockExact(25).getLocation()
+        );
+        strike.setCausingPlayer(player);
     }
 }
