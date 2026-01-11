@@ -1,60 +1,27 @@
 package com.example.abilities;
 
-import com.example.abilities.gui.AbilityGUI;
-import com.example.abilities.listener.AbilityGUIListener;
-import com.example.abilities.manager.AbilityManager;
 import com.example.abilities.manager.PlayerAbilityManager;
-import com.example.abilities.cooldown.CooldownManager;
-
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AbilityPlugin extends JavaPlugin {
 
-    private static AbilityPlugin instance;
-
-    private AbilityManager abilityManager;
-    private PlayerAbilityManager playerAbilityManager;
-    private CooldownManager cooldownManager;
+    private PlayerAbilityManager abilityManager;
 
     @Override
     public void onEnable() {
-        instance = this;
+        abilityManager = new PlayerAbilityManager();
 
-        // Managers
-        abilityManager = new AbilityManager();
-        cooldownManager = new CooldownManager();
-        playerAbilityManager = new PlayerAbilityManager();
-
-        // Register abilities
-        abilityManager.registerAbilities();
-
-        // Register GUI listener
-        getServer().getPluginManager().registerEvents(
-                new AbilityGUIListener(playerAbilityManager),
+        Bukkit.getPluginManager().registerEvents(
+                new AbilityGUIListener(abilityManager),
                 this
         );
 
-        getLogger().info("AbilityPlugin enabled successfully!");
+        getLogger().info("AbilityPlugin enabled!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("AbilityPlugin disabled.");
-    }
-
-    public static AbilityPlugin getInstance() {
-        return instance;
-    }
-
-    public AbilityManager getAbilityManager() {
-        return abilityManager;
-    }
-
-    public PlayerAbilityManager getPlayerAbilityManager() {
-        return playerAbilityManager;
-    }
-
-    public CooldownManager getCooldownManager() {
-        return cooldownManager;
+        getLogger().info("AbilityPlugin disabled!");
     }
 }
