@@ -12,7 +12,7 @@ public class ArcaneShield extends Ability {
         super(
             "Arcane Shield",
             20,
-            "Reduces incoming damage\nfor a short duration.",
+            "Reduces incoming damage\nfor a short time.",
             Sound.BLOCK_ENCHANTMENT_TABLE_USE,
             Particle.ENCHANT
         );
