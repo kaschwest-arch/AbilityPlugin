@@ -19,11 +19,9 @@ public class HealingAura extends Ability {
     @Override
     public void activate(Player player) {
         playEffects(player);
-
-        double newHealth = Math.min(
-                player.getHealth() + 6.0,
-                player.getMaxHealth()
-        );
-        player.setHealth(newHealth);
+        player.setHealth(Math.min(
+                player.getMaxHealth(),
+                player.getHealth() + 6
+        ));
     }
 }
