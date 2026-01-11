@@ -54,7 +54,7 @@ public class AbilityManager implements Listener {
     public List<Ability> getAbilities() {
         return List.of(
             new FireDash(),
-            new ShadowBlink(),
+            new Blink(),
             new LightningStrike(),
             new FrostNova(),
             new WindLeap(),
@@ -62,7 +62,7 @@ public class AbilityManager implements Listener {
             new VoidPull(),
             new FlameWave(),
             new ArcaneShield(),
-            new BloodDrain(),
+            new HealingAura(),
             new ThunderStep(),
             new TimeSlow(),
             new MeteorFall(),
