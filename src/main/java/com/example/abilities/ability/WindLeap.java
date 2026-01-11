@@ -11,7 +11,7 @@ public class WindLeap extends Ability {
         super(
             "Wind Leap",
             7,
-            "Launches you high\ninto the air.",
+            "Leap high\ninto the air.",
             Sound.ENTITY_PHANTOM_FLAP,
             Particle.CLOUD
         );
@@ -20,7 +20,6 @@ public class WindLeap extends Ability {
     @Override
     public void activate(Player player) {
         playEffects(player);
-
-        player.setVelocity(new Vector(0, 1.1, 0));
+        player.setVelocity(new Vector(0, 1.2, 0));
     }
 }
