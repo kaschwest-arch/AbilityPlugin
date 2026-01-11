@@ -2,6 +2,7 @@ package com.example.abilities.ability;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class EarthWall extends Ability {
@@ -9,8 +10,8 @@ public class EarthWall extends Ability {
     public EarthWall() {
         super(
             "Earth Wall",
-            20,
-            "Raises a protective\nwall of earth.",
+            18,
+            "Pushes enemies back\nwith earth energy.",
             Sound.BLOCK_STONE_PLACE,
             Particle.BLOCK
         );
@@ -19,6 +20,16 @@ public class EarthWall extends Ability {
     @Override
     public void activate(Player player) {
         playEffects(player);
-        // Visual / defensive ability placeholder
+
+        for (Entity e : player.getNearbyEntities(4, 2, 4)) {
+            if (e instanceof Player target && !target.equals(player)) {
+                target.setVelocity(
+                        target.getLocation().toVector()
+                                .subtract(player.getLocation().toVector())
+                                .normalize()
+                                .multiply(1.2)
+                );
+            }
+        }
     }
 }
