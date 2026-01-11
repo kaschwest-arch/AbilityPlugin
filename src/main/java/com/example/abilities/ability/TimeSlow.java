@@ -28,7 +28,7 @@ public class TimeSlow extends Ability {
                 target.addPotionEffect(new PotionEffect(
                         PotionEffectType.SLOWNESS,
                         100,
-                        4,
+                        3,
                         true,
                         false
                 ));
