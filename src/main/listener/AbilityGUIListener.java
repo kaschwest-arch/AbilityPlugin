@@ -28,18 +28,10 @@ public class AbilityGUIListener implements Listener {
         if (item == null || item.getType() == Material.AIR) return;
 
         switch (item.getType()) {
-
             case BLAZE_POWDER -> {
                 abilityManager.setAbility(player, "ManaSurge");
                 player.sendMessage("§aYou selected Mana Surge!");
                 player.closeInventory();
-            }
-
-            // future abilities go here
-            // case FEATHER -> abilityManager.setAbility(player, "WindLeap");
-
-            default -> {
-                // do nothing
             }
         }
     }
