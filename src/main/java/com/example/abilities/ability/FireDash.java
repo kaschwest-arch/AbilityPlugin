@@ -11,7 +11,7 @@ public class FireDash extends Ability {
         super(
             "Fire Dash",
             8,
-            "Launches you forward\nin a burst of fire.",
+            "Dash forward\nleaving flames.",
             Sound.ENTITY_BLAZE_SHOOT,
             Particle.FLAME
         );
@@ -20,9 +20,8 @@ public class FireDash extends Ability {
     @Override
     public void activate(Player player) {
         playEffects(player);
-
-        Vector direction = player.getLocation().getDirection().normalize().multiply(1.8);
-        direction.setY(0.35);
-        player.setVelocity(direction);
+        Vector v = player.getLocation().getDirection().multiply(2.0);
+        v.setY(0.2);
+        player.setVelocity(v);
     }
 }
