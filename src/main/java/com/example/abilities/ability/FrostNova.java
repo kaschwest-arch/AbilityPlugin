@@ -12,8 +12,8 @@ public class FrostNova extends Ability {
     public FrostNova() {
         super(
             "Frost Nova",
-            18,
-            "Freezes nearby enemies\nin place.",
+            16,
+            "Freezes enemies\naround you.",
             Sound.BLOCK_GLASS_BREAK,
             Particle.SNOWFLAKE
         );
@@ -23,8 +23,8 @@ public class FrostNova extends Ability {
     public void activate(Player player) {
         playEffects(player);
 
-        for (Entity entity : player.getNearbyEntities(5, 3, 5)) {
-            if (entity instanceof Player target && !target.equals(player)) {
+        for (Entity e : player.getNearbyEntities(5, 3, 5)) {
+            if (e instanceof Player target && !target.equals(player)) {
                 target.addPotionEffect(new PotionEffect(
                         PotionEffectType.SLOWNESS,
                         80,
