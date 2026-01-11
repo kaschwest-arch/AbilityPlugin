@@ -1,18 +1,33 @@
 package com.example.abilities.ability;
 
-import org.bukkit.*;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 public class ArcaneShield extends Ability {
+
     public ArcaneShield() {
-        super("ArcaneShield", "abilities.arcane_shield", 18, Material.SHIELD);
+        super(
+            "Arcane Shield",
+            20,
+            "Reduces incoming damage\nfor a short duration.",
+            Sound.BLOCK_ENCHANTMENT_TABLE_USE,
+            Particle.ENCHANT
+        );
     }
 
     @Override
     public void activate(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,80,0));
+        playEffects(player);
+
+        player.addPotionEffect(new PotionEffect(
+                PotionEffectType.RESISTANCE,
+                100,
+                1,
+                true,
+                false
+        ));
     }
 }
