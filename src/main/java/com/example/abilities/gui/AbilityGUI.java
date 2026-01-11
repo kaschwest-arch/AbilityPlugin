@@ -1,50 +1,50 @@
 package com.example.abilities.gui;
 
-import com.example.abilities.AbilityPlugin;
-import com.example.abilities.ability.Ability;
-import com.example.abilities.manager.AbilityManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.Material;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AbilityGUI {
 
-    private static final String TITLE = ChatColor.DARK_PURPLE + "Select Your Ability";
-
     public static void open(Player player) {
-        AbilityManager manager = AbilityPlugin plugin = (AbilityPlugin) Bukkit.getPluginManager().getPlugin("AbilityPlugin");
-        List<Ability> abilities = manager.getAbilities();
+        Inventory gui = Bukkit.createInventory(null, 27, "§5Abilities");
 
-        Inventory inventory = Bukkit.createInventory(null, 27, TITLE);
+        gui.setItem(11, createItem(
+                Material.BLAZE_POWDER,
+                "§dMana Surge",
+                List.of("§7Boosts mana regeneration")
+        ));
 
-        int slot = 0;
-        for (Ability ability : abilities) {
-            ItemStack item = new ItemStack(Material.NETHER_STAR);
-            ItemMeta meta = item.getItemMeta();
+        gui.setItem(13, createItem(
+                Material.ENDER_PEARL,
+                "§bBlink",
+                List.of("§7Teleport forward")
+        ));
 
-            if (meta == null) continue;
+        gui.setItem(15, createItem(
+                Material.FIRE_CHARGE,
+                "§cFire Burst",
+                List.of("§7Launches fire")
+        ));
 
-            meta.setDisplayName(ChatColor.LIGHT_PURPLE + ability.getName());
+        player.openInventory(gui);
+    }
 
-            List<String> lore = new ArrayList<>();
-            lore.add(ChatColor.GRAY + ability.getDescription());
-            lore.add("");
-            lore.add(ChatColor.YELLOW + "Cooldown: " + ability.getCooldown() + "s");
-            lore.add(ChatColor.GREEN + "Click to select");
+    private static ItemStack createItem(Material material, String name, List<String> lore) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
 
+        if (meta != null) {
+            meta.setDisplayName(name);
             meta.setLore(lore);
             item.setItemMeta(meta);
-
-            inventory.setItem(slot++, item);
         }
 
-        player.openInventory(inventory);
+        return item;
     }
 }
