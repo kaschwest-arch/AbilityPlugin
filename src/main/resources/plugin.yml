@@ -2,7 +2,7 @@ name: AbilityPlugin
 version: 1.1
 main: com.example.abilities.AbilityPlugin
 api-version: 1.21
+
 commands:
   abilities:
-    description: Open ability selection menu
-    usage: /abilities
+    description: Open the ability selection menu
