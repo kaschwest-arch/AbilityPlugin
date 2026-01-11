@@ -1,28 +1,28 @@
 package com.example.abilities;
 
-import com.example.abilities.manager.PlayerAbilityManager;
 import com.example.abilities.command.AbilitiesCommand;
-import org.bukkit.Bukkit;
+import com.example.abilities.listener.AbilityGUIListener;
+import com.example.abilities.manager.AbilityManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AbilityPlugin extends JavaPlugin {
 
-    private PlayerAbilityManager abilityManager;
+    private AbilityManager abilityManager;
 
     @Override
     public void onEnable() {
-        abilityManager = new PlayerAbilityManager();
+        abilityManager = new AbilityManager();
 
-        Bukkit.getPluginManager().registerEvents(
-                new AbilityGUIListener(abilityManager),
-                this
+        getServer().getPluginManager().registerEvents(
+                new AbilityGUIListener(this), this
         );
+
+        getCommand("abilities").setExecutor(new AbilitiesCommand());
 
         getLogger().info("AbilityPlugin enabled!");
     }
 
-    @Override
-    public void onDisable() {
-        getLogger().info("AbilityPlugin disabled!");
+    public AbilityManager getAbilityManager() {
+        return abilityManager;
     }
 }
