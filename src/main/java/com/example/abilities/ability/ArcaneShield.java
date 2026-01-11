@@ -13,6 +13,6 @@ public class ArcaneShield extends Ability {
 
     @Override
     public void activate(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,80,0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,80,0));
     }
 }
