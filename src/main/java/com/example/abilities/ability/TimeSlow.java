@@ -1,38 +1,38 @@
-package com.example.abilities.ability;
+package com.example.abilities.listener;
 
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
+import com.example.abilities.AbilityPlugin;
+import com.example.abilities.manager.AbilityManager;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
-public class TimeSlow extends Ability {
+public class AbilityGUIListener implements Listener {
 
-    public TimeSlow() {
-        super(
-            "Time Slow",
-            18,
-            "Slows enemies\naround you.",
-            Sound.BLOCK_AMETHYST_BLOCK_CHIME,
-            Particle.PORTAL
-        );
+    private final AbilityManager abilityManager;
+
+    public AbilityGUIListener(AbilityPlugin plugin) {
+        this.abilityManager = plugin.getAbilityManager();
     }
 
-    @Override
-    public void activate(Player player) {
-        playEffects(player);
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (event.getCurrentItem() == null) return;
+        if (!event.getView().getTitle().equals("§5Abilities")) return;
 
-        for (Entity e : player.getNearbyEntities(6, 3, 6)) {
-            if (e instanceof Player target && !target.equals(player)) {
-                target.addPotionEffect(new PotionEffect(
-                        PotionEffectType.SLOWNESS,
-                        100,
-                        3,
-                        true,
-                        false
-                ));
-            }
-        }
+        event.setCancelled(true);
+
+        ItemStack item = event.getCurrentItem();
+        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return;
+
+        String abilityName = item.getItemMeta()
+                .getDisplayName()
+                .replace("§", "");
+
+        abilityManager.setAbility(player.getUniqueId(), abilityName);
+        player.sendMessage("§aYou selected " + abilityName + "!");
+        player.closeInventory();
     }
 }
