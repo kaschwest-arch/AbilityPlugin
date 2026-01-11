@@ -1,55 +1,39 @@
 package com.example.abilities.listener;
 
-import com.example.abilities.ability.*;
 import com.example.abilities.manager.PlayerAbilityManager;
-import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class AbilityGUIListener implements Listener {
 
-    private final PlayerAbilityManager playerAbilityManager;
+    private final PlayerAbilityManager abilityManager;
 
-    public AbilityGUIListener(PlayerAbilityManager manager) {
-        this.playerAbilityManager = manager;
+    public AbilityGUIListener(PlayerAbilityManager abilityManager) {
+        this.abilityManager = abilityManager;
     }
 
     @EventHandler
-    public void onClick(InventoryClickEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
-
-        Inventory inv = event.getInventory();
-
+        if (event.getView().getTitle() == null) return;
         if (!event.getView().getTitle().equals("Select Your Ability")) return;
 
         event.setCancelled(true);
 
         ItemStack item = event.getCurrentItem();
-        if (item == null || !item.hasItemMeta()) return;
+        if (item == null || item.getType() == Material.AIR) return;
 
-        String name = ChatColor.stripColor(item.getItemMeta().getDisplayName());
-
-        Ability ability = switch (name) {
-            case "Fire Dash" -> new FireDash();
-            case "Blink" -> new Blink();
-            case "Frost Nova" -> new FrostNova();
-            case "Thunder Step" -> new ThunderStep();
-            case "Void Pull" -> new VoidPull();
-            case "Wind Leap" -> new WindLeap();
-            case "Healing Aura" -> new HealingAura();
-            case "Arcane Shield" -> new ArcaneShield();
-            default -> null;
-        };
-
-        if (ability == null) return;
-
-        playerAbilityManager.setAbility(player.getUniqueId(), ability);
-
-        player.sendMessage(ChatColor.GREEN + "You selected: " + ability.getName());
-        player.closeInventory();
+        switch (item.getType()) {
+            case BLAZE_POWDER -> {
+                abilityManager.setAbility(player, "ManaSurge");
+                player.sendMessage("§aYou selected Mana Surge!");
+                player.closeInventory();
+            }
+        }
     }
 }
+
