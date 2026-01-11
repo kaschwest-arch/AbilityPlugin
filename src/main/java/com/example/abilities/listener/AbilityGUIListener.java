@@ -1,4 +1,4 @@
-package com.example.abilities.listener;
+package com.example.abilities;
 
 import com.example.abilities.manager.PlayerAbilityManager;
 import org.bukkit.Material;
@@ -36,4 +36,5 @@ public class AbilityGUIListener implements Listener {
         }
     }
 }
+
 
