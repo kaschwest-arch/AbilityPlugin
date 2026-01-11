@@ -18,14 +18,33 @@ public class AbilityGUI {
 
     private static final String TITLE = ChatColor.DARK_PURPLE + "Select Your Ability";
 
-    // ✅ THIS IS THE METHOD YOU WERE MISSING
     public static void open(Player player) {
         AbilityManager manager = AbilityPlugin.getInstance().getAbilityManager();
         List<Ability> abilities = manager.getAbilities();
 
-        Inventory inv = Bukkit.createInventory(null, 27, TITLE);
+        Inventory inventory = Bukkit.createInventory(null, 27, TITLE);
 
         int slot = 0;
         for (Ability ability : abilities) {
             ItemStack item = new ItemStack(Material.NETHER_STAR);
             ItemMeta meta = item.getItemMeta();
+
+            if (meta == null) continue;
+
+            meta.setDisplayName(ChatColor.LIGHT_PURPLE + ability.getName());
+
+            List<String> lore = new ArrayList<>();
+            lore.add(ChatColor.GRAY + ability.getDescription());
+            lore.add("");
+            lore.add(ChatColor.YELLOW + "Cooldown: " + ability.getCooldown() + "s");
+            lore.add(ChatColor.GREEN + "Click to select");
+
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+
+            inventory.setItem(slot++, item);
+        }
+
+        player.openInventory(inventory);
+    }
+}
