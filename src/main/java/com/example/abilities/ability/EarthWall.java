@@ -1,18 +1,24 @@
 package com.example.abilities.ability;
 
-import org.bukkit.*;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 public class EarthWall extends Ability {
+
     public EarthWall() {
-        super("EarthWall", "abilities.earth_wall", 15, Material.DIRT);
+        super(
+            "Earth Wall",
+            20,
+            "Raises a protective\nwall of earth.",
+            Sound.BLOCK_STONE_PLACE,
+            Particle.BLOCK
+        );
     }
 
     @Override
     public void activate(Player player) {
-        player.getWorld().spawnParticle(Particle.BLOCK, player.getLocation(), 40, Bukkit.createBlockData(Material.DIRT));
+        playEffects(player);
+        // Visual / defensive ability placeholder
     }
 }
