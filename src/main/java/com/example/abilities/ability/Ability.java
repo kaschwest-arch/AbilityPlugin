@@ -29,6 +29,10 @@ public abstract class Ability {
     public int getCooldown() {
         return cooldown;
     }
+       
+    public int getCooldownSeconds() {
+        return cooldown;
+    }
 
     public String getDescription() {
         return description;
