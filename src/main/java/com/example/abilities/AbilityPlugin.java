@@ -15,19 +15,9 @@ public class AbilityPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-
-        // Initialize ability manager
         abilityManager = new AbilityManager();
 
-        // Register command
-        getCommand("abilities").setExecutor(this);
-
         getLogger().info("AbilityPlugin enabled!");
-    }
-
-    @Override
-    public void onDisable() {
-        getLogger().info("AbilityPlugin disabled!");
     }
 
     public static AbilityPlugin getInstance() {
@@ -38,8 +28,10 @@ public class AbilityPlugin extends JavaPlugin {
         return abilityManager;
     }
 
+    // ✅ THIS HANDLES /abilities
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
         if (!(sender instanceof Player player)) {
             sender.sendMessage("Only players can use this command.");
             return true;
