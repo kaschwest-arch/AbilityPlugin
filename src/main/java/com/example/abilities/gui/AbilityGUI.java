@@ -19,7 +19,7 @@ public class AbilityGUI {
     private static final String TITLE = ChatColor.DARK_PURPLE + "Select Your Ability";
 
     public static void open(Player player) {
-        AbilityManager manager = AbilityPlugin.getInstance().getAbilityManager();
+        AbilityManager manager = AbilityPlugin plugin = (AbilityPlugin) Bukkit.getPluginManager().getPlugin("AbilityPlugin");
         List<Ability> abilities = manager.getAbilities();
 
         Inventory inventory = Bukkit.createInventory(null, 27, TITLE);
