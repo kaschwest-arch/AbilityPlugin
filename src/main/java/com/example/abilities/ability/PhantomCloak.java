@@ -12,7 +12,7 @@ public class PhantomCloak extends Ability {
         super(
             "Phantom Cloak",
             22,
-            "Turns you invisible\nbriefly.",
+            "Become invisible\nbriefly.",
             Sound.ENTITY_PHANTOM_FLAP,
             Particle.SMOKE
         );
@@ -21,7 +21,6 @@ public class PhantomCloak extends Ability {
     @Override
     public void activate(Player player) {
         playEffects(player);
-
         player.addPotionEffect(new PotionEffect(
                 PotionEffectType.INVISIBILITY,
                 120,
