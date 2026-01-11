@@ -1,18 +1,24 @@
 package com.example.abilities.ability;
 
-import org.bukkit.*;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 public class ManaSurge extends Ability {
+
     public ManaSurge() {
-        super("ManaSurge", "abilities.mana_surge", 30, Material.AMETHYST_SHARD);
+        super(
+            "Mana Surge",
+            30,
+            "Instantly refreshes\nability cooldowns.",
+            Sound.BLOCK_BEACON_POWER_SELECT,
+            Particle.END_ROD
+        );
     }
 
     @Override
     public void activate(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,80,1));
+        playEffects(player);
+        // Hook into cooldown manager later
     }
 }
