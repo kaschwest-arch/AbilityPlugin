@@ -20,7 +20,6 @@ public class AbilityGUIListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         if (event.getView().getTitle() == null) return;
-
         if (!event.getView().getTitle().equals("Select Your Ability")) return;
 
         event.setCancelled(true);
@@ -29,10 +28,18 @@ public class AbilityGUIListener implements Listener {
         if (item == null || item.getType() == Material.AIR) return;
 
         switch (item.getType()) {
+
             case BLAZE_POWDER -> {
                 abilityManager.setAbility(player, "ManaSurge");
                 player.sendMessage("§aYou selected Mana Surge!");
                 player.closeInventory();
+            }
+
+            // future abilities go here
+            // case FEATHER -> abilityManager.setAbility(player, "WindLeap");
+
+            default -> {
+                // do nothing
             }
         }
     }
