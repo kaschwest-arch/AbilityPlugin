@@ -12,7 +12,7 @@ public class VoidPull extends Ability {
         super(
             "Void Pull",
             16,
-            "Pulls enemies\ntoward you.",
+            "Pull enemies\ntoward you.",
             Sound.ENTITY_ENDERMAN_SCREAM,
             Particle.PORTAL
         );
@@ -24,11 +24,11 @@ public class VoidPull extends Ability {
 
         for (Entity e : player.getNearbyEntities(6, 3, 6)) {
             if (e instanceof Player target && !target.equals(player)) {
-                Vector pull = player.getLocation().toVector()
+                Vector v = player.getLocation().toVector()
                         .subtract(target.getLocation().toVector())
                         .normalize()
-                        .multiply(0.9);
-                target.setVelocity(pull);
+                        .multiply(1.1);
+                target.setVelocity(v);
             }
         }
     }
