@@ -1,6 +1,7 @@
 package com.example.abilities;
 
 import com.example.abilities.manager.PlayerAbilityManager;
+import com.example.abilities.command.AbilitiesCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
