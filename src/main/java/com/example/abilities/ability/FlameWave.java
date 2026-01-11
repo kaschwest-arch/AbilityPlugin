@@ -11,7 +11,7 @@ public class FlameWave extends Ability {
         super(
             "Flame Wave",
             14,
-            "Releases a wave\nof fire forward.",
+            "Burns nearby\nenemies.",
             Sound.ITEM_FIRECHARGE_USE,
             Particle.FLAME
         );
