@@ -1,48 +1,20 @@
-package com.example.abilities.ability;
+package com.example.abilities;
 
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
+import com.example.abilities.manager.AbilityManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class Ability {
+public class AbilityPlugin extends JavaPlugin {
 
-    private final String name;
-    private final int cooldownSeconds;
-    private final String description;
-    private final Sound sound;
-    private final Particle particle;
+    private static AbilityPlugin instance;
 
-    public Ability(String name, int cooldownSeconds, String description,
-                   Sound sound, Particle particle) {
-        this.name = name;
-        this.cooldownSeconds = cooldownSeconds;
-        this.description = description;
-        this.sound = sound;
-        this.particle = particle;
+    @Override
+    public void onEnable() {
+        instance = this;
+        AbilityManager.registerAbilities();
+        getLogger().info("AbilityPlugin enabled!");
     }
 
-    public String getName() {
-        return name;
+    public static AbilityPlugin getInstance() {
+        return instance;
     }
-
-    public int getCooldownSeconds() {
-        return cooldownSeconds;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void playEffects(Player player) {
-        player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
-        player.getWorld().spawnParticle(
-                particle,
-                player.getLocation().add(0, 1, 0),
-                30,
-                0.5, 0.5, 0.5,
-                0.05
-        );
-    }
-
-    public abstract void activate(Player player);
 }
