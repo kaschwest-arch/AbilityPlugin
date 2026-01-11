@@ -1,18 +1,33 @@
 package com.example.abilities.ability;
 
-import org.bukkit.*;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 public class MeteorFall extends Ability {
+
     public MeteorFall() {
-        super("MeteorFall", "abilities.meteor_fall", 25, Material.MAGMA_BLOCK);
+        super(
+            "Meteor Fall",
+            25,
+            "Summons a meteor\nfrom the sky.",
+            Sound.ENTITY_GENERIC_EXPLODE,
+            Particle.EXPLOSION
+        );
     }
 
     @Override
     public void activate(Player player) {
-        player.getWorld().spawnParticle(Particle.EXPLOSION, player.getLocation().add(0,8,0), 5);
+        playEffects(player);
+
+        if (player.getTargetBlockExact(30) == null) return;
+
+        player.getWorld().createExplosion(
+                player.getTargetBlockExact(30).getLocation(),
+                3.0f,
+                false,
+                false,
+                player
+        );
     }
 }
