@@ -29,12 +29,13 @@ public class AbilityGUIListener implements Listener {
 
         switch (item.getType()) {
             case BLAZE_POWDER -> {
-                abilityManager.setAbility(player, "ManaSurge");
+                abilityManager.setAbility(player.getuniqueId(), "ManaSurge");
                 player.sendMessage("§aYou selected Mana Surge!");
                 player.closeInventory();
             }
         }
     }
 }
+
 
 
