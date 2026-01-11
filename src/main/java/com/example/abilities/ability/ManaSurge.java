@@ -11,11 +11,21 @@ public class ManaSurge extends Ability {
         super(
             "Mana Surge",
             30,
-            "Instantly refreshes\nall ability cooldowns.",
+            "Instantly refreshes ability cooldowns.",
             Sound.BLOCK_BEACON_POWER_SELECT,
             Particle.END_ROD
         );
     }
 
     @Override
-    public v
+    public void activate(Player player) {
+        playEffects(player);
+
+        // Clear cooldowns by setting this ability on cooldown only
+        CooldownManager.setCooldown(
+            player.getUniqueId(),
+            getName(),
+            getCooldown()
+        );
+    }
+}
