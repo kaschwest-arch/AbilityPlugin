@@ -1,7 +1,8 @@
 package com.example.abilities;
 
 import com.example.abilities.gui.AbilityGUI;
-import com.example.abilities.manager.AbilityManager;
+import com.example.abilities.listener.AbilityGUIListener;
+import com.example.abilities.manager.PlayerAbilityManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,26 +11,39 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AbilityPlugin extends JavaPlugin {
 
     private static AbilityPlugin instance;
-    private AbilityManager abilityManager;
     private PlayerAbilityManager playerAbilityManager;
+    private AbilityGUI abilityGUI;
 
     @Override
     public void onEnable() {
         instance = this;
-        abilityManager = new AbilityManager();
+
+        // Managers
+        playerAbilityManager = new PlayerAbilityManager();
+        abilityGUI = new AbilityGUI();
+
+        // Register listeners
+        getServer().getPluginManager().registerEvents(
+                new AbilityGUIListener(playerAbilityManager),
+                this
+        );
 
         getLogger().info("AbilityPlugin enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        getLogger().info("AbilityPlugin disabled!");
     }
 
     public static AbilityPlugin getInstance() {
         return instance;
     }
 
-    public AbilityManager getAbilityManager() {
-        return abilityManager;
+    public PlayerAbilityManager getPlayerAbilityManager() {
+        return playerAbilityManager;
     }
 
-    // ✅ THIS HANDLES /abilities
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -39,7 +53,7 @@ public class AbilityPlugin extends JavaPlugin {
         }
 
         if (command.getName().equalsIgnoreCase("abilities")) {
-            AbilityGUI.open(player);
+            abilityGUI.open(player);
             return true;
         }
 
