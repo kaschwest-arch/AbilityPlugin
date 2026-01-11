@@ -11,6 +11,7 @@ public class AbilityPlugin extends JavaPlugin {
 
     private static AbilityPlugin instance;
     private AbilityManager abilityManager;
+    private PlayerAbilityManager playerAbilityManager;
 
     @Override
     public void onEnable() {
